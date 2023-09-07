@@ -188,7 +188,7 @@ defmodule OpenIDConnect do
       )
       |> URI.encode_query(:www_form)
 
-    headers = [{"Content-Type", "application/x-www-form-urlencoded"}] <> extra_headers
+    headers = [{"Content-Type", "application/x-www-form-urlencoded"}] ++ extra_headers
 
     with {:ok, document} <- Document.fetch_document(discovery_document_uri),
          request = Finch.build(:post, document.token_endpoint, headers, form_body),
