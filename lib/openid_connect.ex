@@ -171,9 +171,9 @@ defmodule OpenIDConnect do
   was requested during authorization. `params` may also include any one-off overrides for token
   fetching.
   """
-  @spec fetch_tokens(config(), params :: %{optional(atom) => term()}) ::
+  #@spec fetch_tokens(config(), params :: %{optional(atom) => term()}) ::
           {:ok, response :: map()} | {:error, term()}
-  def fetch_tokens(config, params) do
+  def fetch_tokens(config, params, extra_headers \\ []) do
     discovery_document_uri = config.discovery_document_uri
 
     form_body =
@@ -188,7 +188,7 @@ defmodule OpenIDConnect do
       )
       |> URI.encode_query(:www_form)
 
-    headers = [{"Content-Type", "application/x-www-form-urlencoded"}]
+    headers = [{"Content-Type", "application/x-www-form-urlencoded"}] <> extra_headers
 
     with {:ok, document} <- Document.fetch_document(discovery_document_uri),
          request = Finch.build(:post, document.token_endpoint, headers, form_body),
