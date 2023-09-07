@@ -172,7 +172,7 @@ defmodule OpenIDConnect do
   fetching.
   """
   #@spec fetch_tokens(config(), params :: %{optional(atom) => term()}) ::
-          {:ok, response :: map()} | {:error, term()}
+  #        {:ok, response :: map()} | {:error, term()}
   def fetch_tokens(config, params, extra_headers \\ []) do
     discovery_document_uri = config.discovery_document_uri
 
